@@ -10,7 +10,20 @@ html{
     display: flex;
     justify-content: space-evenly;
 }
-
+.tercio{
+    display:grid;
+    grid-template-columns: 33% 33% 33%;
+    justify-items: center;
+    padding: 50px 0;
+    cursor: pointer;
+}
+.mitad{
+    display:grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+    padding: 50px 0;
+    cursor: pointer;
+}
 
 .glass div:nth-child(odd){
     border-radius: 5px 35px;
@@ -28,7 +41,6 @@ html{
     width: 150px;
     height: auto;
 }
-
 
 footer{
     display: grid;
@@ -63,6 +75,10 @@ footer div.centradoY.espaciadoX a:first-child img{
     display: grid;
     grid-template-columns: 40% auto;
 }
+
+
+
+
 
 @media (max-width:420px){
     .centradoY{
