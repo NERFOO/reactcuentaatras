@@ -1,0 +1,72 @@
+html{
+    padding: 0;
+    margin: 0;
+}
+.centradoY{
+    display: flex;
+    align-items: center;
+}
+.espaciadoX{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+.glass div:nth-child(odd){
+    border-radius: 5px 35px;
+    box-shadow: -5px 5px 7px rgba(128, 128, 128, 0.5);
+    margin: 45px 10%;
+    padding: 15px;
+}
+.glass div:nth-child(even){
+    border-radius: 35px 5px;
+    box-shadow: 5px 5px 7px rgba(128, 128, 128, 0.5);
+    margin: 45px 10%;
+    padding: 15px;
+}
+.glass div img {
+    width: 150px;
+    height: auto;
+}
+
+
+footer{
+    display: grid;
+    background-color: rgba(128, 128, 128, 0.5);
+    padding: 20px 10px;
+}
+footer div ul li{
+    display: list-item;
+    list-style-type: none;
+}
+footer div ul li a{
+    text-decoration: none;
+    color: black;
+}
+footer div ul h3{
+    text-decoration: none;
+    text-transform: uppercase;
+}
+footer div ul li a:hover{
+    font-weight: bold;
+    color: black;
+}
+footer div.centradoY.espaciadoX a img{
+    width: 36px;
+    height: auto;
+}
+footer div.centradoY.espaciadoX a:first-child img{
+    width: 100px;
+    height: auto;
+}
+.divisorFooter{
+    display: grid;
+    grid-template-columns: 40% auto;
+}
+
+@media (max-width:420px){
+    .centradoY{
+        display: grid;
+        align-items: center;
+    }
+}
