@@ -10,19 +10,28 @@ html{
     display: flex;
     justify-content: space-evenly;
 }
+.espaciadoY{
+    padding: 20px 0;
+}
 .tercio{
     display:grid;
     grid-template-columns: 33% 33% 33%;
     justify-items: center;
     padding: 50px 0;
-    cursor: pointer;
 }
 .mitad{
     display:grid;
     grid-template-columns: 50% 50%;
     justify-items: center;
     padding: 50px 0;
+}
+.pointer{
     cursor: pointer;
+}
+.warning{
+    background-color: rgb(255, 196, 140);
+    padding: 10px;
+    border-radius: 15px;
 }
 
 .glass div:nth-child(odd){
@@ -84,5 +93,16 @@ footer div.centradoY.espaciadoX a:first-child img{
     .centradoY{
         display: grid;
         align-items: center;
+    }
+    .espaciadoY{
+        padding: 20px 0;
+    }
+    .tercio{
+        display:grid;
+        grid-template-columns: 100%;
+    }
+    .mitad{
+        display:grid;
+        grid-template-columns: 100%;
     }
 }

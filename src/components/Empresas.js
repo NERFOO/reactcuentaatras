@@ -29,8 +29,8 @@ export default class Empresas extends Component {
         return (<div className='tercio'>
             {
                 this.state.empresas.map((empresa, index) => {
-                    return (<div key={index}>
-                        <div className="card" style={{width: "18rem"}}>
+                    return (<div key={index} className="espaciadoY">
+                        <div className="card pointer" style={{width: "18rem"}}>
                             <img src={empresa.imagen} className="card-img-top" alt="logo empresa"></img>
                             <div className="card-body">
                                 <h5 className="card-title">{empresa.nombreEmpresa}</h5>

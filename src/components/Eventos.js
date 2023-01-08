@@ -29,9 +29,9 @@ export default class Eventos extends Component {
         return (<div className='mitad'>
             {
                 this.state.eventos.map((evento, index) => {
-                    return (<div key={index}>
-                        <div className="card" style={{width: "18rem"}}>
-                          <h3>Evento {evento.idEvento}</h3>
+                    return (<div key={index} className="espaciadoY">
+                        <div className="card pointer" style={{width: "18rem"}}>
+                            <h3>Evento {evento.idEvento}</h3>
                             <div className="card-body">
                                 <h5 className="card-title">{evento.nombreEvento}</h5>
                                 <span className="card-title">Inicio: {evento.inicioEvento}</span>

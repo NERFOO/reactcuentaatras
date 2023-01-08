@@ -12,7 +12,7 @@ export default class Salas extends Component {
     }
 
     cargarSalas = () => {
-        var request = "api/Eventos/";
+        var request = "api/Salas/";
         var url = Global.url + request;
 
         axios.get(url).then( res => {
@@ -30,12 +30,11 @@ export default class Salas extends Component {
         return (<div className='mitad'>
             {
                 this.state.salas.map((sala, index) => {
-                    return (<div key={index}>
-                        <div className="card" style={{width: "18rem"}}>
-                          <h3>Sala {sala.idSala}</h3>
+                    return (<div key={index} className="espaciadoY">
+                        <div className="card pointer" style={{width: "18rem"}}>
+                            <h3>Sala {sala.idSala}</h3>
                             <div className="card-body">
                                 <h5 className="card-title">{sala.nombreSala}</h5>
-                                <NavLink to={"#"} className='btn btn-success'>Acceder</NavLink>
                             </div>
                         </div>
                     </div>)
