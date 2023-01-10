@@ -30,9 +30,7 @@ export default class Home extends Component {
 
                     <br/><br/>
 
-                    <NavLink className={"btn btn-success"} to={`/eventos`}>Ver eventos</NavLink>
-                    <span> </span>
-                    <NavLink className={"btn btn-info"} to={`/crearEvento`}>Crear evento</NavLink>
+                    <NavLink className={"btn btn-success"} to={`/eventos`}>Crear evento</NavLink>
                 </div>
 
                 <div>

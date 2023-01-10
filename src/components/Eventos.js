@@ -1,58 +1,133 @@
-import React, { Component } from 'react';
-import Global from '../Global';
-import axios from 'axios';
-import './css/estilos.css';
-import Timer from './Timer';
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 
-export default class Eventos extends Component {
+function App() {
+  const [counters, setCounters] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-    state = {
-        status : false ,
-        eventos : []
-    }
+  function createCounter(minutes) {
+    const name = document.getElementById('name').value;
+    setCounters(prevCounters => [...prevCounters, { minutes, seconds: 0, isRunning: false, name }]);
+  }
+  
 
-    cargarEventos = () => {
-        var request = "api/TimerEventos/";
-        var url = Global.url + request;
+  function startAll() {
+    setCounters(prevCounters => {
+      if (prevCounters.some(counter => !counter.isRunning)) {
+        setCurrentIndex(0);
+        return prevCounters.map((counter, index) => {
+          if (index === 0) {
+            return { ...counter, isRunning: true };
+          } else {
+            return counter;
+          }
+        });
+      } else {
+        setCurrentIndex(0);
+        return prevCounters.map((counter, index) => {
+          if (index === 0) {
+            return { ...counter, isRunning: true };
+          } else {
+            return { ...counter, isRunning: false };
+          }
+        });
+      }
+    });
+  }
 
-        axios.get(url).then( res => {
-            this.setState({
-                status : true ,
-                eventos : res.data
-            })
-        })
-    }
-    componentDidMount = () => {
-        this.cargarEventos();
-    }
+  function startNext(index) {
+    setCounters(prevCounters => {
+      return prevCounters.map((counter, i) => {
+        if (i === index + 1) {
+          return { ...counter, isRunning: true };
+        } else if (i === index) {
+          return { ...counter, isRunning: false };
+        } else {
+          return counter;
+        }
+      });
+    });
+    setCurrentIndex(index + 1);
+  }
 
-    render() {
-        return (<div className='mitad'>
-            {
-                this.state.eventos.map((evento, index) => {
-                    return (<div key={index} className="espaciadoY">
-                        <div className="card pointer">
-                            <h3>Evento {evento.uniqueId}</h3>
-                            <div className="card-body">
-                                <h5 className="card-title">Evento: {evento.evento}</h5>
-                                <h5 className="card-title">Empresa: {evento.empresa}</h5>
-                                <h5 className="card-title">Sala: {evento.sala}</h5>
-                                <span className="card-title">Inicio: {evento.inicioEvento}</span>
-                                <br/>
-                                <span className="card-title">Final: {evento.finEvento}</span>
-                            </div>
-                        </div>
+  return (
+    <div className="container mt-5">
+      <div className="form-inline mb-3">
+        <label className="mr-3" htmlFor="name">Nombre:</label>
+        <input className="form-control mr-3" type="text" id="name" />
+        <label className="mr-3" htmlFor="minutes">Minutos:</label>
+        <input className="form-control mr-3" type="number" min="0" max="59" id="minutes" />
+        <button className="btn btn-primary" onClick={() => {
+          const minutes = document.getElementById('minutes').value;
+          createCounter(minutes);
+        }}>
+          Crear
+        </button>
+      </div>
+      <button className="btn btn-primary" onClick={startAll}>Inciar</button>
+      <div className="counters mt-3">
+        {counters.map((counter, index) => (
+          <Counter
+            key={index}
+            minutes={counter.minutes}
+            seconds={counter.seconds}
+            isRunning={counter.isRunning && currentIndex === index}
+            index={index}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+            startNext={startNext}
+            name={counter.name}
+          />
+        ))}
+      </div>
+    </div>
+  );
+  
 
-
-
-
-
-                        <div>
-                            <Timer seconds={evento.duracion * 60}/>
-                        </div>
-                    </div>)
-                })
-            }
-        </div>)
-    }
 }
+
+function Counter({ minutes, seconds, isRunning, index, currentIndex, setCurrentIndex, startNext,name }) {
+    const [timeLeft, setTimeLeft] = useState((minutes * 60) + seconds);
+  
+    React.useEffect(() => {
+      if (isRunning) {
+        const interval = setInterval(() => {
+          setTimeLeft(prevTime => {
+            if (prevTime > 0) {
+              return prevTime - 1;
+            } else {
+              clearInterval(interval);
+              startNext(index);
+              return 0;
+            }
+          });
+        }, 1000);
+        return () => clearInterval(interval);
+      }
+    }, [isRunning, index]);
+  
+    const minutesString = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+    const secondsString = String(timeLeft % 60).padStart(2, '0');
+  
+    return (
+      <div className="counter mb-3">
+        <div class="card text-center">
+          <div class="card-header">
+            <h3>{name}</h3>
+          </div>
+          <div class="card-body">
+            {timeLeft > 0 ? (
+              <p class="display-2 text-secondary">{minutesString}:{secondsString}</p>
+            ) : (
+              <p class="display-2 text-danger">&#x2715;</p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+
+
+
+export default App;
